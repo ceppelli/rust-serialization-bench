@@ -96,12 +96,11 @@ cargo bench
 
 ---
 
-## Conglusion
+## Conclusion
 
-As it is easy to understand there are tangible benefits in terms of performance to use different libraries.
+As it is easy to understand there are tangible benefits in terms of performance to use different libraries. In particular the [rkyv](https://crates.io/crates/rkyv) library seems to give the greatest tangible improvement.
 
 This wasn't meant to be a rigorous test, but rather an answer to my curiosity.
-
 
 ---
 
