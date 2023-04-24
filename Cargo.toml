@@ -8,8 +8,8 @@ Performance comparison between serialization and deserialization libraries for t
 """
 readme = "README.md"
 license = "MIT"
-keywords = ["solana", "gossip", "blockchain", "tui"]
-categories = ["library"]
+keywords = ["solana", "protocol", "serialization", "bench"]
+categories = ["bench"]
 repository = "https://github.com/ceppelli/rust-serialization-bench"
 
 

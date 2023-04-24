@@ -10,8 +10,6 @@ use rkyv::{
     AlignedVec, Archive, Deserialize, Infallible, Serialize,
 };
 
-use crate::solana_gossip_proto::Protocol;
-
 pub type BenchSerializer<'a> = CompositeSerializer<
     AlignedSerializer<&'a mut AlignedVec>,
     BufferScratch<&'a mut AlignedVec>,
@@ -58,21 +56,21 @@ where
 
     group.bench_function("deserialize", |b| {
         b.iter(|| {
-            black_box(
-                check_archived_value::<Protocol>(
-                    black_box(deserialize_buffer.as_ref()),
-                    black_box(pos),
-                )
-                .unwrap(),
-            );
+            let value =
+                check_archived_value::<T>(black_box(deserialize_buffer.as_ref()), black_box(pos))
+                    .unwrap();
+            let deserialized: T = value.deserialize(&mut Infallible).unwrap();
+            black_box(deserialized);
         });
     });
 
     group.bench_function("deserialize (unsafe max performance)", |b| {
         b.iter(|| {
-            black_box(unsafe {
-                archived_value::<Protocol>(black_box(deserialize_buffer.as_ref()), black_box(pos))
-            });
+            let value = unsafe {
+                archived_value::<T>(black_box(deserialize_buffer.as_ref()), black_box(pos))
+            };
+            let deserialized: T = value.deserialize(&mut Infallible).unwrap();
+            black_box(deserialized);
         });
     });
 
